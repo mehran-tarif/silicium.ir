@@ -1,0 +1,35 @@
+{% if is_paginated %}
+<div class="text-center pb-1">
+    <nav aria-label="Page navigation" style="display: inline-block;">
+        <ul class="pagination p-0">
+            <li class="page-item">
+                {% if page_obj.has_previous %}
+                    <a class="page-link" href="?page={{page_obj.previous_page_number}}" aria-label="Previous">
+                        <span aria-hidden="true">«</span>
+                    </a>
+                {% else %}
+                    <a class="page-link" style="cursor: wait;color: rgba(31, 45, 61, .3);" aria-label="Previous">
+                        <span aria-hidden="true">«</span>
+                    </a>
+                {% endif %}
+            </li>
+            {% for i in page_obj.paginator.page_range %}
+                <li class="page-item {% if page_obj.number == i %}active{% endif %}">
+                    <a class="page-link" href="?page={{i}}">{{i}}</a>
+                </li>
+            {% endfor %}
+            <li class="page-item">
+                {% if page_obj.has_next %}
+                    <a class="page-link" href="?page={{page_obj.next_page_number}}" aria-label="Next">
+                        <span aria-hidden="true">»</span>
+                    </a>
+                {% else %}
+                    <a class="page-link" style="cursor: wait;color: rgba(31, 45, 61, .3);" aria-label="Next">
+                        <span aria-hidden="true">»</span>
+                    </a>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
+</div>
+{% endif %}

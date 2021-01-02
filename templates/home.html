@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta_description %}ما از بروزترین و جدیدترین تکنولوژی ها، آموزش ویدیویی و متنی تولید می کنیم و راه درست رو نشونتون میدیم (:{% endblock %}
+{% block meta_author %}Mehran Tarif{% endblock %}
+{% block meta_title %}خانه{% endblock %}
+{% block meta_canonical %}https://silicium.ir/{% endblock %}
+{% block meta_own %}{% endblock %}
+
+{% block main %}
+	<section class="slice py-5">
+		<div class="container">
+			<div class="row row-grid align-items-center">
+				<div class="col-12 col-md-5 col-lg-6 order-md-2 text-center">
+					<figure class="w-100">
+						<img alt="Image placeholder" src="{% static 'frontend/assets/img/svg/illustrations/illustration-3.svg' %}" class="img-fluid mw-md-120">
+					</figure>
+				</div>
+				<div class="col-12 col-md-7 col-lg-6 order-md-1 pl-md-5">
+					<h1 class="display-4 text-center text-md-right mb-3">اینجا ویژه اونایی هست که به <strong class="text-warning">یادگیری و زمان</strong> بها میدن!</h1>
+					<p class="lead text-center text-md-right text-muted">ما از بروزترین و جدیدترین تکنولوژی ها، آموزش ویدیویی و متنی تولید می کنیم و <strong class="text-success">راه درست</strong> رو نشونتون میدیم (:</p>
+					<div class="text-center mt-5">
+						<a href="{% url 'article:list' %}" class="btn btn-neutral mb-1 btn-icon d-inline-block">مقالات</a>
+						<a href="{% url 'course:list' %}" style="border-color: #6367E2" class="btn btn-primary btn-icon mb-1">
+							<span class="btn-inner--text">ویدیوها</span> 
+							<span class="btn-inner--icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+								<polyline points="15 18 9 12 15 6"></polyline>
+							</svg>
+							</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

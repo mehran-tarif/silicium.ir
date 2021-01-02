@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load gravatar %}
+{% load humanize %}
+
+{% block meta_description %}{% if not category %}اینجا سعی کردیم براتون آخرین و به‌روزترین مقالات و آموزش ها رو در حیطه برنامه نویسی و کامپیوتر گردآوری کنیم (:{% else %}اینجا میتونید آخرین مقالاتمون در دسته‌بندی {{category.title}} رو مطالعه کنید (:{% endif %}{% endblock %}
+{% block meta_author %}Mehran Tarif{% endblock %}
+{% block meta_title %}{% if not category %}لیست مقالات{% else %}دسته‌بندی {{category.title}}{% endif %}{% endblock %}
+{% block meta_canonical %}https://silicium.ir/{% if not category %}articles/{% else %}category/{{category.slug}}/{% endif %}{% endblock %}
+{% block meta_own %}{% endblock %}
+
+{% block main %}
+	<section class="articles-card slice slice-lg pt-lg-5 pb-0 bg-section-secondary">
+		<div class="container">
+			<!-- Title -->
+			<!-- Section title -->
+			<div class="row mb-5 justify-content-center text-center">
+				<div class="col-lg-6">
+					{% if not category %}
+						<h2 class=" mt-4">مقالات آموزشی</h2>
+						<div class="mt-2">
+							<p class="lead lh-180">اینجا سعی کردیم براتون آخرین و به‌روزترین مقالات و آموزش ها رو گردآوری کنیم.</p>
+						</div>
+					{% else %}
+						<h2 class=" mt-4">دسته‌بندی: {{category.title}}</h2>
+						<div class="mt-2">
+							<p class="lead lh-180">اینجا میتونید آخرین مقالاتمون در دسته‌بندی {{category.title}} رو مطالعه کنید (:</p>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+			<!-- Card -->
+			<div class="row mt-3">
+				{% for article in object_list %}
+					<div class="col-md-4">
+						<div class="pb-5">
+							<img src="{{article.thumbnails.url}}" class="img-fluid img-center" style="border-radius: 0.75rem 0.75rem 0 0" alt="{{article.title}}" />
+						</div>
+						<time class="badge badge-danger" style="position: absolute;top: 5px;right: 20px;">
+							{{article.publish|naturaltime}}
+						</time>
+						<a href="{% url 'article:category' article.category.slug %}" class="badge badge-warning" style="position: absolute;top: 5px;left: 20px;">
+							{{article.category}}
+						</a>
+						<div class="card">
+							<div class="card-body">
+									<div class="avatar mr-auto ml-4">
+										<img src="{% gravatar_url article.author.email 150 %}" class="rounded-circle" alt="Author Email">
+									</div>
+								<div class="card-data">
+									<h5 class="h4 lh-130 mb-3">
+										<a href="{% url 'article:detail' article.slug %}">{{article.title}}</a>
+									</h5>
+									<p class="text-muted mb-0">{{article.description|safe|striptags|truncatewords:30}}</p>
+									<hr style="margin: 1rem 0;">
+									<div class="clearfix">
+										<div class="col-auto float-right p-0">
+											<ul class="list-inline mb-0 p-0">
+												<li class="list-inline-item pl-2 mr-0">
+													<a class="text-muted">
+														<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye text-muted">
+																<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+																<circle cx="12" cy="12" r="3"></circle>
+														</svg>
+														{{article.hits.count}}
+													</a>
+												</li>
+												<li class="list-inline-item">
+													<a class="text-muted">
+														<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle text-muted">
+																<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+														</svg>
+														{{article.comments.count}}
+													</a>
+												</li>
+											</ul>
+										</div>
+										<a href="{% url 'article:detail' article.slug %}" class="btn btn-primary float-left" style="padding: 0.25rem 1rem;">بیشتر</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% empty %}
+					<div class="alert alert-danger w-100 mx-3 mx-lg-0">هنوز مقاله ای وجود ندارد.</div>
+				{% endfor %}
+			</div>
+		</div>
+		{% include 'partials/pagination.html' with page_obj=page_obj %}
+	</section>
+{% endblock %}

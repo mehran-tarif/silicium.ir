@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load gravatar %}
+{% load humanize %}
+
+{% block meta_description %}اینجا میتونید همه ی دوره های برگزار شده توسط سیلیسیم رو مشاهده کنید (:{% endblock %}
+{% block meta_author %}Mehran Tarif{% endblock %}
+{% block meta_title %}لیست دوره ها{% endblock %}
+{% block meta_canonical %}https://silicium.ir/courses/{% endblock %}
+{% block meta_own %}{% endblock %}
+
+{% block main %}
+	<section class="articles-card slice slice-lg pt-lg-5 pb-0 bg-section-secondary">
+		<div class="container">
+			<!-- Title -->
+			<!-- Section title -->
+			<div class="row mb-5 justify-content-center text-center">
+				<div class="col-lg-6">
+					<h2 class=" mt-4">لیست دوره ها</h2>
+					<div class="mt-2">
+						<p class="lead lh-180">اینجا میتونید همه ی دوره های برگزار شده توسط سیلیسیم رو مشاهده کنید (:</p>
+					</div>
+				</div>
+			</div>
+			<!-- Card -->
+			{% for category in object_list %}
+				<h3 class="course-h3">{{category.title}}</h3>
+				<div class="row mt-4">
+					{% for course in category.courses.active %}
+						<div class="col-md-4">
+							<div class="pb-5">
+								<img src="{{course.thumbnails.url}}" class="img-fluid img-center" style="border-radius: 0.75rem 0.75rem 0 0" alt="{{course.title}}" />
+							</div>
+							<div class="card">
+								<div class="card-body">
+									<div class="avatar mr-auto ml-4">
+										<img src="{% gravatar_url course.author.email 150 %}" class="rounded-circle" alt="Author Image">
+									</div>
+									<div class="card-data">
+										<h5 class="h4 lh-130 mb-3">
+											<a href="{% url 'course:course' course.slug %}">{{course.title}}</a>
+										</h5>
+										<p class="text-muted mb-0">{{course.description|safe|striptags|truncatewords:30}}</p>
+										<hr style="margin: 1rem 0;">
+										<div class="clearfix">
+											<div class="col-auto float-right p-0">
+												<ul class="list-inline mb-0 p-0">
+													<li class="list-inline-item pl-4">
+														<a class="text-muted">
+															<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-video"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+															{{course.videos.active.count}}
+														</a>
+													</li>
+												</ul>
+											</div>
+											<a href="{% url 'course:course' course.slug %}" class="btn btn-primary float-left" style="padding: 0.25rem 1rem;">بیشتر</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% empty %}
+						<p class="alert alert-danger w-100">هنوز ویدیویی ای وجود ندارد.</p>
+					{% endfor %}
+				</div>
+			{% empty %}
+				<p class="alert alert-danger">هنوز دسته‌بندی ای وجود ندارد.</p>
+			{% endfor %}
+		</div>
+	</section>
+{% endblock %}

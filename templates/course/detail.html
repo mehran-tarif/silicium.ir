@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load gravatar %}
+{% load humanize %}
+{% load widget_tweaks %}
+
+{% block meta_description %}{{object.description|safe|striptags|truncatewords:30}}{% endblock %}
+{% block meta_author %}{{object.course.author}}{% endblock %}
+{% block meta_title %}{{object.title}}{% endblock %}
+{% block meta_canonical %}https://silicium.ir/courses/{{object.course.slug}}/{{object.position}}/{% endblock %}
+{% block meta_own %}{% endblock %}
+
+{% block main %}
+<section class="slice slice-lg pt-17 pb-0 bg-cover bg-size--cover" style="background-image:url({{object.course.thumbnail.url}})">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-xl-9 col-lg-10">
+				<div class="card mb-n7 position-relative zindex-100">
+					<div class="card-body p-md-5">
+						<div class="text-center">
+							<a href="{% url 'course:course' object.course.slug %}" class="badge badge-warning badge-pill">{{object.course}}</a>
+							<h1 class="h2 lh-150 mt-3 mb-0">{{object.title}}</h1>
+						</div>
+						<hr class="p-0">
+						<div class="row align-items-center mt-5 delimiter-top">
+							<div class="col mb-3 mb-lg-0">
+								<div class="media align-items-center">
+									<div class="avatar rounded-circle ml-3"><img alt="Author Image" src="{% gravatar_url object.course.author.email 150 %}"></div>
+									<div class="media-body">
+										<span class="d-block h6 mb-0">
+											{% if object.course.author.get_full_name %}
+												{{object.course.author.get_full_name}}
+											{% else %}
+												{{object.course.author}}
+											{% endif %}
+										</span>
+										<span class="text-sm text-muted">
+											<strong>انتشار:</strong>
+											{{object.publish|naturaltime}}
+										</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-auto">
+								<ul class="list-inline mb-0">
+									<li class="list-inline-item pl-4">
+										<a class="text-muted">
+											<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye ml-1 text-muted">
+												<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+												<circle cx="12" cy="12" r="3"></circle>
+											</svg>
+											{{object.hits.count}}
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>]
+		</div>
+	</div>
+	<div class="shape-container shape-position-bottom">
+		<svg width="2560px" height="100px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" viewBox="0 0 2560 100" style="enable-background:new 0 0 2560 100" xml:space="preserve" class="">
+			<polygon points="2560 0 2560 100 0 100"></polygon>
+		</svg>
+	</div>
+</section>
+<section class="slice slice-lg pb-0 pt-6">
+	<div class="container pb-5">
+		<div class="row row-grid align-items-center">
+			<div class="col-xl-8 col-lg-10 mx-auto">
+				<article>
+					{{object.description|safe}}
+					{% if user.is_authenticated %}
+						<div>
+							<a class="px-3 py-2 btn-youtube btn-icon-label navbar-btn btn btn-sm bt-nod-lg-inline-block" href="{{object.address}}" target="_blank">
+								<span class="btn-inner--icon">
+									<i class="fab fa-youtube"></i>
+								</span>
+								<span class="btn-inner--text">لینک ویدیو در یوتیوب</span>
+							</a>
+						</div>
+						<div class="video-container mt-3">
+							{{object.iframe|safe}}
+						</div>
+					{% else %}
+					<div class="alert alert-danger">
+							برای تماشای این ویدیو باید وارد شوید: <strong><a style="color: #fff" href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}">ورود</a></strong>
+					</div>
+					{% endif %}
+				</article>
+				{% if user.is_authenticated %}
+				<div class="row align-items-center mt-5 py-4 border-top border-bottom">
+					<div class="col mb-3 mb-lg-0">
+						<div class="media align-items-center">
+							<div class="avatar rounded-circle ml-3"><img alt="User Image" src="{% gravatar_url object.course.author.email 150 %}"></div>
+							<div class="media-body">
+								<span class="d-block h6 mb-0">
+									{% if object.course.author.get_full_name %}
+										{{object.course.author.get_full_name}}
+									{% else %}
+										{{object.course.author}}
+									{% endif %}
+								</span>
+								<span class="text-sm text-muted">
+									<strong>انتشار:</strong>
+									{{object.publish|naturaltime}}
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-auto">
+						<ul class="list-inline mb-0">
+							<li class="list-inline-item pl-4">
+								<a class="text-muted">
+									<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye ml-1 text-muted">
+										<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+										<circle cx="12" cy="12" r="3"></circle>
+									</svg>
+									{{object.hits.count}}
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</section>
+{% if next_video or prev_video %}
+<section class="slice slice-lg bg-section-secondary pb-0">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-xl-8 col-lg-8">
+				<div class="row align-items-center mb-5">
+					<div class="col-12 col-md">
+						<h3 class="h4 mb-0">ادامه جلسات!</h3>
+						<p class="mb-0 text-muted">ویدیوهای بیشتر این دوره</p>
+					</div>
+					<div class="col-12 col-md-auto"><a href="{% url 'course:course' object.course.slug %}" class="btn btn-sm btn-neutral d-none d-md-inline">مشاهده همه</a></div>
+				</div>
+				<div class="row">
+				{% if prev_video %}
+					<div class="col-md-6">
+						<div class="pb-5">
+							<img src="{{prev_video.course.thumbnail.url}}" class="img-fluid img-center" style="border-radius: 0.75rem 0.75rem 0 0" alt="{{prev_video.title}}" />
+						</div>
+						<time class="badge badge-primary" style="position: absolute;top: 5px;right: 20px;">
+							{{prev_video.publish|naturaltime}}
+						</time>
+						<div class="card">
+							<div class="card-body">
+								<div class="avatar mr-auto ml-4">
+									<img src="{% gravatar_url prev_video.author.email 150 %}" class="rounded-circle" alt="Author Image">
+								</div>
+								<div class="card-data">
+									<h5 class="h4 lh-130 mb-3">
+										<a href="{% url 'course:detail' prev_video.course.slug prev_video.position %}">{{prev_video.title}}</a>
+									</h5>
+									<p class="text-muted mb-0">{{prev_video.description|safe|striptags|truncatewords:30}}</p>
+									<hr style="margin: 1rem 0;">
+									<div class="clearfix">
+										<div class="col-auto float-right p-0">
+											<ul class="list-inline mb-0 p-0">
+												<li class="list-inline-item pl-2 mr-0">
+													<a href="#" class="text-muted">
+														<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye text-muted">
+															<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+															<circle cx="12" cy="12" r="3"></circle>
+														</svg>
+														{{prev_video.hits.count}}
+													</a>
+												</li>
+											</ul>
+										</div>
+										<a href="{% url 'course:detail' prev_video.course.slug prev_video.position %}" class="btn btn-primary float-left" style="padding: 0.25rem 1rem;">بیشتر</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endif %}
+				{% if next_video %}
+					<div class="col-md-6">
+						<div class="pb-5">
+							<img src="{{next_video.course.thumbnail.url}}" class="img-fluid img-center" style="border-radius: 0.75rem 0.75rem 0 0" alt="{{next_video.title}}" />
+						</div>
+						<time class="badge badge-primary" style="position: absolute;top: 5px;right: 20px;">
+							{{next_video.publish|naturaltime}}
+						</time>
+						<div class="card">
+							<div class="card-body">
+								<div class="avatar mr-auto ml-4">
+									<img src="{% gravatar_url next_video.author.email 150 %}" class="rounded-circle" alt="Author Image">
+								</div>
+								<div class="card-data">
+									<h5 class="h4 lh-130 mb-3">
+										<a href="{% url 'course:detail' next_video.course.slug next_video.position %}">{{next_video.title}}</a>
+									</h5>
+									<p class="text-muted mb-0">{{next_video.description|safe|striptags|truncatewords:30}}</p>
+									<hr style="margin: 1rem 0;">
+									<div class="clearfix">
+									<div class="col-auto float-right p-0">
+										<ul class="list-inline mb-0 p-0">
+											<li class="list-inline-item pl-2 mr-0">
+													<a href="#" class="text-muted">
+														<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye text-muted">
+																<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+																<circle cx="12" cy="12" r="3"></circle>
+														</svg>
+														{{next_video.hits.count}}
+													</a>
+											</li>
+										</ul>
+									</div>
+										<a href="{% url 'course:detail' next_video.course.slug next_video.position %}" class="btn btn-primary float-left" style="padding: 0.25rem 1rem;">بیشتر</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endif %}
+{% endblock %}

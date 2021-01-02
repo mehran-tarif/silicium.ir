@@ -1,0 +1,76 @@
+{% load static %}
+	<nav class="navbar navbar-expand-lg navbar-light bg-white">
+		<div class="container">
+			<!-- Brand -->
+			<a class="navbar-brand" href="/">
+				<img alt="Site Logo" src="{% static 'frontend/assets/img/tmp/silicium.png' %}" id="navbar-logo">
+				<h1 class="d-inline mr-2" style="font-size: 24px">سیلیسیم</h1>
+			</a>
+			<!-- Toggler -->
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<!-- Collapse -->
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="navbar-nav mt-4 mt-lg-0 mr-auto">
+					<li class="nav-item ">
+						<a class="nav-link" href="/">خانه</a>
+					</li>
+					<li class="nav-item dropdown dropdown-animate" data-toggle="hover">
+						<a class="nav-link" href="{% url 'course:list' %}">آموزش ها</a>
+						<!-- <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">آموزش ها</a>
+						<div class="dropdown-menu dropdown-menu-single text-right">
+							<a href="video.html" class="dropdown-item">برنامه‌نویسی سیستمی</a>
+							<a href="video.html" class="dropdown-item">بک‌اند</a>
+							<a href="video.html" class="dropdown-item">فرانت‌اند</a>
+							<div class="dropdown-divider"></div>
+							<a href="videos.html" class="dropdown-item">آموزش های بیشتر</a>
+						</div> -->
+					</li>
+					<li class="nav-item ">
+						<a class="nav-link" href="{% url 'article:list' %}">مقالات</a>
+					</li>
+					<li class="nav-item ">
+						<a class="nav-link" style="cursor: wait; color: rgba(31, 45, 61, .3)"
+						data-toggle="tooltip" data-placement="bottom" title="به زودی">انجمن</a>
+					</li>
+					<li class="nav-item ">
+						<a class="nav-link" style="cursor: wait; color: rgba(31, 45, 61, .3)"
+						data-toggle="tooltip" data-placement="bottom" title="به زودی">پادکست</a>
+					</li>
+				</ul>
+				<!-- Button -->
+				{% if not user.is_authenticated %}
+					<a class="btn-youtube btn-icon-label navbar-btn btn btn-sm d-none d-lg-inline-block mr-3" href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}">
+						<span class="btn-inner--icon">
+							<i class="fab fa-google"></i>
+						</span>
+						<span class="btn-inner--text">ورود / ثبت‌نام</span>
+					</a>
+					<a class="btn-github btn-icon-label navbar-btn btn btn-sm d-none d-lg-inline-block mr-3" href="{% url 'social:begin' 'github' %}?next={{request.path}}">
+						<span class="btn-inner--icon">
+							<i class="fab fa-github"></i>
+						</span>
+						<span class="btn-inner--text">ورود / ثبت‌نام</span>
+					</a>
+					<!-- Mobile button -->
+					<div class="d-lg-none text-center mb-2">
+						<a href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}" class="btn btn-block btn-sm btn-danger">
+							<span class="btn-inner--icon">
+								<i class="fab fa-google"></i>
+							</span>
+							<span class="btn-inner--text">ورود / ثبت‌نام با گوگل</span>
+						</a>
+					</div>
+					<div class="d-lg-none text-center mb-2">
+						<a href="{% url 'social:begin' 'github' %}?next={{request.path}}" class="btn btn-block btn-sm btn-dark">
+							<span class="btn-inner--icon">
+								<i class="fab fa-github"></i>
+							</span>
+							<span class="btn-inner--text">ورود / ثبت‌نام با گیت‌هاب</span>
+						</a>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</nav>

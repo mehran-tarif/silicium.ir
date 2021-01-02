@@ -1,0 +1,274 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load gravatar %}
+{% load humanize %}
+{% load widget_tweaks %}
+
+{% block meta_description %}{{object.description|safe|striptags|truncatewords:30}}{% endblock %}
+{% block meta_author %}{% if object.author.get_full_name %}{{object.author.get_full_name}}{% else %}{{object.author}}{% endif %}{% endblock %}
+{% block meta_title %}{{object.title}}{% endblock %}
+{% block meta_canonical %}https://silicium.ir/articles/{{object.slug}}/{% endblock %}
+{% block meta_own %}{% endblock %}
+
+{% block top_massages %}
+	{% if request.resolver_match.url_name == 'detail-success' %}
+		<div class="alert alert-success" style="border-radius: 0">
+			دیدگاه با موفقیت ثبت شد. به زودی پاسخ داده میشه (:
+		</div>
+	{% elif preview and user.is_superuser %}
+		<div class="alert alert-primary" style="border-radius: 0">
+			این یک دمو است (:
+		</div>
+	{% endif %}
+{% endblock %}
+
+{% block main %}
+{% if not preview or user.is_superuser %}
+	<section class="slice slice-lg pt-17 pb-0 bg-cover bg-size--cover" style="background-image:url({{object.thumbnail.url}})">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-xl-9 col-lg-10">
+					<div class="card mb-n7 position-relative zindex-100">
+						<div class="card-body p-md-5">
+							<div class="text-center">
+								<a href="{% url 'article:category' object.category.slug %}" class="badge badge-warning badge-pill">{{object.category}}</a>
+								<h1 class="h2 lh-150 mt-3 mb-0">{{object.title}}</h1>
+							</div>
+							<hr class="p-0">
+							<div class="row align-items-center mt-5 delimiter-top">
+								<div class="col mb-3 mb-lg-0">
+										<div class="media align-items-center">
+											<div class="avatar rounded-circle ml-3"><img alt="Author Image" src="{% gravatar_url article.author.email 150 %}"></div>
+											<div class="media-body">
+												<span class="d-block h6 mb-0">
+													{% if object.author.get_full_name %}
+														{{object.author.get_full_name}}
+													{% else %}
+														{{object.author}}
+													{% endif %}
+												</span>
+												<span class="text-sm text-muted">
+													<strong>انتشار:</strong>
+													{{article.publish|naturaltime}}
+												</span>
+											</div>
+										</div>
+								</div>
+								<div class="col-auto">
+									<ul class="list-inline mb-0">
+										<li class="list-inline-item pl-4">
+											<a class="text-muted">
+												<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye ml-1 text-muted">
+														<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+														<circle cx="12" cy="12" r="3"></circle>
+												</svg>
+												{{object.hits.count}}
+											</a>
+										</li>
+										<li class="list-inline-item">
+											<a href="#comments-name" class="text-muted">
+												<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle ml-1 text-muted">
+														<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+												</svg>
+												{{object.comments.count}}
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>]
+			</div>
+		</div>
+		<div class="shape-container shape-position-bottom">
+			<svg width="2560px" height="100px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" viewBox="0 0 2560 100" style="enable-background:new 0 0 2560 100" xml:space="preserve" class="">
+				<polygon points="2560 0 2560 100 0 100"></polygon>
+			</svg>
+		</div>
+	</section>
+	<section class="slice slice-lg pb-0 pt-6">
+		<div class="container pb-5">
+			<div class="row row-grid align-items-center">
+				<div class="col-xl-8 col-lg-10 mx-auto">
+					<article>
+						{{object.description|safe}}
+					</article>
+					<div class="row align-items-center mt-7 py-4 border-top border-bottom">
+						<div class="col mb-3 mb-lg-0">
+							<div class="media align-items-center">
+								<div href="#" class="avatar rounded-circle ml-3">
+									<img alt="Author Image" src="{% gravatar_url article.author.email 150 %}">
+								</div>
+								<div class="media-body">
+									<span class="d-block h6 mb-0">
+										{% if object.author.get_full_name %}
+											{{object.author.get_full_name}}
+										{% else %}
+											{{object.author}}
+										{% endif %}
+									</span>
+									<span class="text-sm text-muted">منتشر‌شده در {{article.publish|naturaltime}}</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-auto">
+							<ul class="list-inline mb-0">
+								<li class="list-inline-item pl-4">
+									<a class="text-muted">
+										<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye ml-1 text-muted">
+											<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+											<circle cx="12" cy="12" r="3"></circle>
+										</svg>
+										{{object.hits.count}}
+									</a>
+								</li>
+								<li class="list-inline-item">
+									<a href="#comments-name" class="text-muted">
+										<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle ml-1 text-muted">
+											<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+										</svg>
+										{{object.comments.count}}
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					{% if not preview %}
+						<div class="my-5">
+							<h6 class="mb-4" id="comments-name">دیدگاه ها</h6>
+							{% for comment in object.comments.active %}
+								<div class="media media-comment">
+									<img alt="User Image" class="rounded-circle shadow ml-4" src="{% gravatar_url comment.user.email 150 %}" style="width:58px">
+									<div class="media-body">
+										<div class="media-comment-bubble left-top">
+											<div class="clearfix">
+												<h6 class="float-right mt-0">
+													{% if comment.user.get_full_name %}
+														{{comment.user.get_full_name}}
+													{% else %}
+														{{comment.user}}
+													{% endif %}
+												</h6>
+												<time class="float-left" style="font-size: 12px;">{{comment.created|naturaltime}}</time>
+											</div>
+											<p class="text-sm lh-160">{{comment.content|safe}}</p>
+										</div>
+									</div>
+								</div>
+								{% if comment.answer and comment.author %}
+									<div class="media media-comment media-comment-answer">
+										<img alt="User Image" class="rounded-circle shadow ml-4" src="{% gravatar_url comment.author.email 150 %}" style="width:58px">
+										<div class="media-body">
+											<div class="media-comment-bubble left-top">
+												<div class="clearfix">
+													<h6 class="float-right mt-0">
+														{% if comment.author.get_full_name %}
+															{{comment.author.get_full_name}}
+														{% else %}
+															{{comment.author}}
+														{% endif %}
+													</h6>
+													<time class="float-left" style="font-size: 12px;">{{comment.updated|naturaltime}}</time>
+												</div>
+												<p class="text-sm lh-160">{{comment.answer|safe}}</p>
+											</div>
+										</div>
+									</div>
+								{% endif %}
+							{% empty %}
+								<div class="alert alert-success">
+									<p>اولین دیدگاه رو بنویسید!</p>
+								</div>
+							{% endfor %}
+						</div>
+						{% if user.is_authenticated %}
+							<div class="media media-comment align-items-center">
+								<img alt="User Image" class="rounded-circle shadow ml-4" src="{% gravatar_url user.email 150 %}" style="width:58px">
+								<div class="media-body">
+									<form method="post">
+										{% csrf_token %}
+										<div class="form-group">
+											{% render_field form.content class="form-control rounded-lg border" rows="3" placeholder="نوشتن دیدگاه ..." %}
+										</div>
+										<button type="submit" class="btn btn-sm btn-primary">ارسال</button>
+									</form>
+								</div>
+							</div>
+						{% else %}
+							<div class="alert alert-danger">
+								برای ارسال نظر وارد شوید: <strong><a style="color: #fff" href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}">ورود</a></strong>
+							</div>
+						{% endif %}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</section>
+{% endif %}
+{% if not preview %}
+	<section class="slice slice-lg bg-section-secondary pb-0">
+		<div class="container">
+			<div class="row align-items-center mb-5">
+				<div class="col-12 col-md">
+					<h3 class="h4 mb-0">ادامه مطالعه!</h3>
+					<p class="mb-0 text-muted">مقالات و آموزش های بیشتر</p>
+				</div>
+				<div class="col-12 col-md-auto"><a href="{% url 'article:list' %}" class="btn btn-sm btn-neutral d-none d-md-inline">مشاهده همه</a></div>
+			</div>
+			<div class="row">
+				{% for item in items %}
+					<div class="col-md-4">
+						<div class="pb-5">
+							<img src="{{item.thumbnail.url}}" class="img-fluid img-center" style="border-radius: 0.75rem 0.75rem 0 0" alt="{{item.title}}" />
+						</div>
+						<time class="badge badge-primary" style="position: absolute;top: 5px;right: 20px;">
+							{{item.publish|naturaltime}}
+						</time>
+						<div class="card">
+							<div class="card-body">
+								<div class="avatar mr-auto ml-4">
+									<img src="{% gravatar_url item.author.email 150 %}" class="rounded-circle" alt="Author Image">
+								</div>
+								<div class="card-data">
+									<h5 class="h4 lh-130 mb-3">
+										<a href="{% url 'article:detail' item.slug %}">{{item.title}}</a>
+									</h5>
+									<p class="text-muted mb-0">{{item.description|safe|striptags|truncatewords:30}}</p>
+									<hr style="margin: 1rem 0;">
+									<div class="clearfix">
+									<div class="col-auto float-right p-0">
+										<ul class="list-inline mb-0 p-0">
+											<li class="list-inline-item pl-2 mr-0">
+												<a href="#" class="text-muted">
+													<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye text-muted">
+															<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+															<circle cx="12" cy="12" r="3"></circle>
+													</svg>
+													{{item.hits.count}}
+												</a>
+											</li>
+											<li class="list-inline-item">
+												<a href="#" class="text-muted">
+													<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle text-muted">
+															<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+													</svg>
+													{{item.comments.count}}
+												</a>
+											</li>
+										</ul>
+									</div>
+										<a href="{% url 'article:detail' item.slug %}" class="btn btn-primary float-left" style="padding: 0.25rem 1rem;">بیشتر</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% empty %}
+					<p class="alert alert-danger w-100">هنوز مقاله ای وجود ندارد.</p>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+{% endif %}
+{% endblock %}

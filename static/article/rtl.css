@@ -1,0 +1,128 @@
+@font-face {
+	font-family: Sahel FD WOL;
+	src: url('Sahel-FD-WOL.eot');
+	src: url('Sahel-FD-WOL.eot?#iefix') format('embedded-opentype'),
+			 url('Sahel-FD-WOL.woff2') format('woff2'),
+			 url('Sahel-FD-WOL.woff') format('woff'),
+			 url('Sahel-FD-WOL.ttf') format('truetype');
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: Sahel FD WOL;
+	src: url('Sahel-Bold-FD-WOL.eot');
+	src: url('Sahel-Bold-FD-WOL.eot?#iefix') format('embedded-opentype'),
+			 url('Sahel-Bold-FD-WOL.woff2') format('woff2'),
+			 url('Sahel-Bold-FD-WOL.woff') format('woff'),
+			 url('Sahel-Bold-FD-WOL.ttf') format('truetype');
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: Sahel FD WOL;
+	src: url('Sahel-Light-FD-WOL.eot');
+	src: url('Sahel-Light-FD-WOL.eot?#iefix') format('embedded-opentype'),
+			 url('Sahel-Light-FD-WOL.woff2') format('woff2'),
+			 url('Sahel-Light-FD-WOL.woff') format('woff'),
+			 url('Sahel-Light-FD-WOL.ttf') format('truetype');
+	font-weight: 300;
+}
+
+@font-face {
+	font-family: Sahel FD WOL;
+	src: url('Sahel-SemiBold-FD-WOL.eot');
+	src: url('Sahel-SemiBold-FD-WOL.eot?#iefix') format('embedded-opentype'),
+			 url('Sahel-SemiBold-FD-WOL.woff2') format('woff2'),
+			 url('Sahel-SemiBold-FD-WOL.woff') format('woff'),
+			 url('Sahel-SemiBold-FD-WOL.ttf') format('truetype');
+	font-weight: 600;
+}
+
+@font-face {
+	font-family: Sahel FD WOL;
+	src: url('Sahel-Black-FD-WOL.eot');
+	src: url('Sahel-Black-FD-WOL.eot?#iefix') format('embedded-opentype'),
+			 url('Sahel-Black-FD-WOL.woff2') format('woff2'),
+			 url('Sahel-Black-FD-WOL.woff') format('woff'),
+			 url('Sahel-Black-FD-WOL.ttf') format('truetype');
+	font-weight: 900;
+}
+
+body {
+		text-align: right;
+		font-family: Sahel FD WOL;
+}
+
+.tooltip {font-family: Sahel FD WOL;}
+
+.text-warning {color: #EEB11E;}
+.text-primary {color: #6367E2;}
+.text-success {color: #1DC685;}
+.text-danger  {color: #C1554D;}
+.btn-warning  {background-color: #EEB11E;border-color: #EEB11E;}
+.btn-primary  {background-color: #6367E2;border-color: #6367E2;}
+.btn-success  {background-color: #1DC685;border-color: #1DC685;}
+.btn-danger   {background-color: #C1554D;border-color: #C1554D;}
+
+pre {
+		direction: ltr;
+		text-align: left;
+}
+
+code {
+		direction: ltr;
+		text-align: left;
+		display: inline-block;
+}
+
+blockquote {
+    border-right: 5px solid #07b3bb;
+    padding-right: 10px;
+}
+
+article img {
+    display: block;
+    margin: auto;
+    max-width: 100%;
+}
+
+#authenticated-header {
+	border-radius: 0;
+	color: #000
+}
+
+.course-h3 {
+	border-bottom: 5px solid #1DC685;
+	padding-bottom: 10px;
+	display: inline-block;
+}
+
+.btn-instagram {
+		background: #f09433;
+		background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+		background: -webkit-linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+		background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );
+		border-color: #dc2743;
+}
+
+.django-ckeditor-widget {
+		width: 100%;
+}
+
+.video-container {
+		position: relative;
+		padding-bottom: 56.25%; /* 16:9 */
+		height: 0;
+}
+.video-container iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+}
+
+section.slice div.card {
+    opacity: 0.95;
+}

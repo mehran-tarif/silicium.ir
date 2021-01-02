@@ -1,0 +1,103 @@
+{% load static %}
+	<footer class="position-relative" id="footer-main">
+		<div class="footer pt-lg-7 footer-dark bg-dark">
+			<!-- SVG shape -->
+			<div class="shape-container shape-line shape-position-top shape-orientation-inverse">
+				<svg style="/*fill: #fff !important*/" width="2560px" height="100px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" viewBox="0 0 2560 100" style="enable-background:new 0 0 2560 100;" xml:space="preserve" class=" fill-section-secondary">
+					<polygon points="2560 0 2560 100 0 100"></polygon>
+				</svg>
+			</div>
+			<!-- Footer -->
+			<div class="container pt-md-4 pt-6">
+				<div class="row">
+
+					<div class="col-lg-4 mb-5 mb-lg-0">
+						<!-- Theme's logo -->
+						<a href="/">
+							<img alt="Site Logo" src="{% static 'frontend/assets/img/tmp/silicium.png' %}" id="footer-logo">
+							<h2 class="d-inline mr-2 text-white">سیلیسیم</h2>
+						</a>
+						<!-- Webpixels' mission -->
+						<p class="mt-4 text-sm opacity-8 pr-lg-4">اینجا ویژه اونایی هست که به یادگیری و زمان بها میدن! ما از بروزترین و جدیدترین تکنولوژی ها آموزش ویدیویی و متنی تولید می کنیم و راه درست رو نشونتون میدیم.</p>
+						<!-- Social -->
+						<ul class="nav mt-4 pr-0 mr-lg-4">
+							<li>
+								<a class="px-3 py-2 mb-2 btn-youtube btn-icon-label navbar-btn btn btn-sm bt-nod-lg-inline-block" href="https://youtube.com/silicium7" target="_blank">
+									<span class="btn-inner--icon">
+										<i class="fab fa-youtube"></i>
+									</span>
+									<span class="btn-inner--text">یوتیوب</span>
+								</a>
+							</li>
+							<li>
+								<a class="px-3 py-2 mb-2 mx-2 btn-icon-label navbar-btn btn btn-sm btn-primary d-inline-block" href="https://t.me/siliciumir" style="background-color: #0088cc !important; border-color: #0088cc" target="_blank">
+									<span class="btn-inner--icon">
+										<i class="fab fa-telegram"></i>
+									</span>
+									<span class="btn-inner--text">تلگرام</span>
+								</a>
+							</li>
+							<li>
+								<a class="px-3 py-2 mb-2 btn-instagram btn-icon-label navbar-btn btn btn-sm btn-primary d-inline-block" href="https://instagram.com/siliciumir" target="_blank">
+									<span class="btn-inner--icon">
+										<i class="fab fa-instagram"></i>
+									</span>
+									<span class="btn-inner--text">اینستاگرام</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+
+					<div class="col-lg-2 col-6 col-sm-4 mr-lg-auto mb-5 mb-lg-0">
+						<h6 class="heading mb-3">حساب کاربری</h6>
+						<ul class="list-unstyled">
+							{% if not user.is_authenticated %}
+								<a class="btn-youtube btn-icon-label navbar-btn btn btn-sm d-inline-block mb-2" href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}" style="min-width: 137px;">
+									<span class="btn-inner--icon">
+										<i style="font-size: 18px" class="fab fa-google"></i>
+									</span>
+									<span class="btn-inner--text">ورود / ثبت‌نام</span>
+								</a>
+								<a class="btn-light btn-icon-label navbar-btn btn btn-sm d-inline-block mb-2" href="{% url 'social:begin' 'github' %}?next={{request.path}}" style="min-width: 137px;">
+									<span class="btn-inner--icon">
+										<i style="font-size: 18px" class="fab fa-github"></i>
+									</span>
+									<span class="btn-inner--text">ورود / ثبت‌نام</span>
+								</a>
+							{% else %}
+								<li><a href="{% url 'logout' %}?next={{request.path}}" class="px-3 py-2 mb-2 btn-youtube btn-icon-label navbar-btn btn btn-sm d-inline-block" style="color: #fff">خروج</a></li>
+							{% endif %}
+						</ul>
+					</div>
+
+					<div class="col-lg-2 col-6 col-sm-4 mb-5 mb-lg-0">
+						<h6 class="heading mb-3">بخش ها</h6>
+						<ul class="list-unstyled">
+							<li><a href="{% url 'article:list' %}">مقالات</a></li>
+							<li><a href="{% url 'course:list' %}">ویدیوها</a></li>
+							<li>
+								<a style="cursor: wait;" data-toggle="tooltip"
+								data-placement="left" title="به زودی">انجمن</a>
+							</li>
+							<li>
+								<a style="cursor: wait;" data-toggle="tooltip"
+								data-placement="left" title="به زودی">پادکست</a>
+							</li>
+						</ul>
+					</div>
+
+				</div>
+
+				<hr class="divider divider-fade divider-dark my-4">
+
+				<div class="row align-items-center justify-content-md-between pb-4">
+					<div class="col-md-8 mx-auto">
+						<div class="copyright text-sm font-weight-bold text-center" style="color: #b5c0a0">
+							هرگونه انتشار و بازنشر مطالبی که <a href="/">سیلیسیم</a> اولین انتشار دهنده آن است، با ذکر منبع آزاد بوده و توصیه می‌شود.
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</footer>

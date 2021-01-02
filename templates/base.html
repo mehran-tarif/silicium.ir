@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="canonical" href="{% block meta_canonical %}{% endblock %}" />
+	<meta name="description" content="{% block meta_description %}{% endblock %}">
+	<meta name="author" content="{% block meta_author %}{% endblock %}">
+	<meta name="keywords" content="python,django,javascript,js,vuejs,vue js,vue,js,programing,program,code,codding,آموزش جنگو,فریمورک جنگو,دوره جنگو,آموزش پایتون,آموزش رایگان جنگو,آموزش رایگان پایتون,آموزش مبتدی جنگو,آموزش مبتدی پایتون,جاوا اسکریپت,وی جی اس,آموزش جاوا اسکریپت,آموزش ویو جی اس,آموزش نصب لینوکس">
+	<title>{% block meta_title %}{% endblock %} | سیلیسیم</title>
+	<!-- Preloader -->
+	<style>
+		@keyframes hidePreloader {
+			0% {
+				width: 100%;
+				height: 100%;
+			}
+
+			100% {
+				width: 0;
+				height: 0;
+			}
+		}
+
+		body>div.preloader {
+			position: fixed;
+			background: white;
+			width: 100%;
+			height: 100%;
+			z-index: 1071;
+			opacity: 0;
+			transition: opacity .5s ease;
+			overflow: hidden;
+			pointer-events: none;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		body:not(.loaded)>div.preloader {
+			opacity: 1;
+		}
+
+		body:not(.loaded) {
+			overflow: hidden;
+		}
+
+		body.loaded>div.preloader {
+			animation: hidePreloader .5s linear .5s forwards;
+		}
+	</style>
+	<script>
+		window.addEventListener("load", function() {
+			setTimeout(function() {
+				document.querySelector('body').classList.add('loaded');
+			}, 300);
+		});
+	</script>
+	<link rel="stylesheet" href="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/obsidian.css' %}" />
+	<script src="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %}"></script>
+	<!-- Favicon -->
+	<link rel="icon" href="{% static 'frontend/assets/img/tmp/silicium.png' %}" type="image/png"><!-- Font Awesome -->
+	<link rel="stylesheet" href="{% static 'frontend/assets/libs/@fortawesome/fontawesome-free/css/all.min.css' %}">
+	<!-- Quick CSS -->
+	<link rel="stylesheet" href="{% static 'frontend/assets/css/quick-website.css' %}" id="stylesheet">
+	<link rel="stylesheet" href="{% static 'article/rtl.css' %}" id="stylesheet">
+	{% block meta_own %}{% endblock %}
+</head>
+<body>
+	<!-- Preloader -->
+	<div class="preloader">
+		<div class="spinner-border text-primary" role="status">
+			<span class="sr-only">منتظر بمانید...</span>
+		</div>
+	</div>
+
+	<!-- header -->
+	{% include 'partials/header.html' %}
+
+	<!-- some top msg ex success -->
+	{% block top_massages %}{% endblock %}
+
+	<!-- navbar -->
+	{% include 'partials/nav.html' %}
+
+	<!-- Main content -->
+	{% block main %}{% endblock %}
+
+	<!-- footer -->
+	{% include 'partials/footer.html' %}
+
+	<!-- Core JS  -->
+	<script src="{% static 'frontend/assets/libs/jquery/dist/jquery.min.js' %}"></script>
+	<script src="{% static 'frontend/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+	<script src="{% static 'frontend/assets/libs/svg-injector/dist/svg-injector.min.js' %}"></script>
+	<script src="{% static 'frontend/assets/libs/feather-icons/dist/feather.min.js' %}"></script>
+	<!-- Quick JS -->
+	<script src="{% static 'frontend/assets/js/quick-website.js' %}"></script>
+	<!-- Feather Icons -->
+	<script>
+		feather.replace({
+			'width': '1em',
+			'height': '1em'
+		})
+		$(function () {
+			$('[data-toggle="tooltip"]').tooltip()
+		})
+		hljs.initHighlightingOnLoad();
+	</script>
+</body>
+</html>

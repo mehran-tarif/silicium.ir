@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load gravatar %}
+{% load humanize %}
+
+{% block meta_description %}{{course.description|safe|striptags|truncatewords:30}}{% endblock %}
+{% block meta_author %}{% if course.author.get_full_name %}{{course.author.get_full_name}}{% else %}{{course.author}}{% endif %}{% endblock %}
+{% block meta_title %}{{course.title}}{% endblock %}
+{% block meta_canonical %}https://silicium.ir/courses/{{course.slug}}/{% endblock %}
+{% block meta_own %}{% endblock %}
+
+{% block main %}
+<section class="slice slice-lg pt-17 pb-0 bg-cover bg-size--cover" style="background-image:url({{course.thumbnails.url}})">
+	<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-xl-9 col-lg-10">
+					<div class="card mb-n7 position-relative zindex-100">
+						<div class="card-body p-md-5">
+							<div class="text-center">
+								<a href="{% url 'course:list' %}" class="badge badge-warning badge-pill">{{course.category}}</a>
+								<h1 class="h2 lh-150 mt-3 mb-0">{{course.title}}</h1>
+							</div>
+							<hr class="p-0">
+							<div class="row align-items-center mt-5 delimiter-top">
+								<div class="col mb-3 mb-lg-0">
+									<div class="media align-items-center">
+										<div class="avatar rounded-circle ml-3"><img alt="Image placeholder" src="{% gravatar_url course.author.email 150 %}"></div>
+										<div class="media-body">
+											<span class="d-block h6 mb-0">
+												{% if course.author.get_full_name %}
+													{{course.author.get_full_name}}
+												{% else %}
+													{{course.author}}
+												{% endif %}
+											</span>
+											<span class="text-sm text-muted">
+												<strong>انتشار:</strong>
+												{{course.publish|naturaltime}}
+											</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-auto">
+									<ul class="list-inline mb-0">
+										<li class="list-inline-item pl-4">
+											<a class="text-muted">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-video"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+												{{course.videos.active.count}}
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="shape-container shape-position-bottom">
+		<svg width="2560px" height="100px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" viewBox="0 0 2560 100" style="enable-background:new 0 0 2560 100" xml:space="preserve" class="">
+			<polygon points="2560 0 2560 100 0 100"></polygon>
+		</svg>
+	</div>
+</section>
+<section class="slice slice-lg pb-0">
+	<div class="container pb-6">
+		<div class="row row-grid align-items-center">
+			<div class="col-xl-8 col-lg-10 mx-auto">
+				<article>
+					<div class="mb-5">
+						{{course.description|safe}}
+					</div>
+					{% if user.is_authenticated %}
+						<div class="mb-3">
+							<a class="px-3 py-2 btn-youtube btn-icon-label navbar-btn btn btn-sm bt-nod-lg-inline-block" href="{{course.address}}" target="_blank">
+								<span class="btn-inner--icon">
+										<i class="fab fa-youtube"></i>
+								</span>
+								<span class="btn-inner--text">لینک پلی لیست در یوتیوب</span>
+							</a>
+						</div>
+					{% endif %}
+					{% if course.videos.active %}
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">جلسه</th>
+									<th scope="col">عنوان</th>
+								</tr>
+							</thead>
+							{% for video in course.videos.active %}
+								<tbody>
+										<tr>
+											<th scope="row" class=""><a href="{% url 'course:detail' course.slug video.position %}" class="badge badge-warning">{{video.position}}</a></th>
+											<td><a href="{% url 'course:detail' course.slug video.position %}">{{video.title}}</a></td>
+										</tr>
+								</tbody>
+							{% endfor %}
+						</table>
+					{% else %}
+						<p class="alert alert-danger">هنوز ویدیویی ای وجود ندارد.</p>
+					{% endif %}
+				</article>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

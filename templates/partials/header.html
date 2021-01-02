@@ -1,0 +1,17 @@
+{% if user.is_authenticated %}
+	<div class="alert alert-warning mb-0" id="authenticated-header">
+		<p class="float-md-right mb-md-0">
+			سلام {% if user.get_full_name %}«{{user.get_full_name}}»{% else %}{{user}}{% endif %} عزیز، خوش اومدی (:
+		</p>
+		<div class="clearfix">
+			<div class="float-left">
+				<a href="{% url 'logout' %}?next={{request.path}}" class="btn btn-dark py-0 px-3">خروج</a>
+			</div>
+			{% if user.is_superuser %}
+				<div class="float-left ml-3">
+					<a href="{% url 'admin:index' %}" class="btn btn-danger py-0 px-3">پنل مدیریت</a>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+{% endif %}
