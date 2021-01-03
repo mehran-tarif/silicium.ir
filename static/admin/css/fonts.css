@@ -1,20 +1,20 @@
 @font-face {
     font-family: 'Roboto';
-    src: url('../fonts/Roboto-Bold-webfont.woff');
+    src: url('../fonts/Sahel-Bold-FD-WOL.woff2');
     font-weight: 700;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Roboto';
-    src: url('../fonts/Roboto-Regular-webfont.woff');
+    src: url('../fonts/Sahel-FD-WOL.woff2');
     font-weight: 400;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Roboto';
-    src: url('../fonts/Roboto-Light-webfont.woff');
+    src: url('../fonts/Sahel-Light-FD-WOL.woff2');
     font-weight: 300;
     font-style: normal;
 }

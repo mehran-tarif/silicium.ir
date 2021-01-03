@@ -24,7 +24,7 @@ urlpatterns = [
 	path('', include('social_django.urls', namespace='social')),
 	path('', include('article.urls')),
 	path('courses/', include('course.urls')),
-	path('admin/login/', RedirectView.as_view(url='/')),
+	# path('admin/login/', RedirectView.as_view(url='/')),
 	path('admin/', admin.site.urls),
 	path('ckeditor/', include('ckeditor_uploader.urls')),
 	path('logout/', logout_view, name='logout'),
