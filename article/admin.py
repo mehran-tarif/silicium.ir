@@ -1,16 +1,23 @@
 from django.contrib import admin
 from .models import Article, Category, Comment, IpAddress
 from .actions import make_published, make_draft
+from account.models import User
 
 # Register your models here.
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('position', 'title','slug','status')
-    list_filter = (['status'])
-    search_fields = ('title', 'slug')
-    prepopulated_fields = {'slug': ('title',)}
+	list_display = ('position', 'title','slug','status')
+	list_filter = (['status'])
+	search_fields = ('title', 'slug')
+	prepopulated_fields = {'slug': ('title',)}
 
 
 class ArticleAdmin(admin.ModelAdmin):
+	def formfield_for_foreignkey(self, db_field, request, **kwargs):
+		if db_field.name == "author":
+			kwargs["queryset"] = User.objects.filter(is_staff=True)
+		return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+
 	list_display = ('title', 'preview_url', 'thumbnail_tag','slug', 'author', 'jpublish', 'status')
 	list_filter = ('publish','status', 'author')
 	search_fields = ('title', 'description')
